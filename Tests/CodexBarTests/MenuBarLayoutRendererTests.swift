@@ -62,7 +62,8 @@ struct MenuBarLayoutRendererTests {
             data: data,
             icon: icon,
             options: self.options())
-        #expect(absoluteOutput.attributedTitle.string != "–")
+        let resetDate = self.now.addingTimeInterval(2 * 60 * 60)
+        #expect(absoluteOutput.attributedTitle.string == String(Calendar.current.component(.day, from: resetDate)))
     }
 
     @Test

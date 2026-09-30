@@ -685,7 +685,9 @@ final class MenuBarLayoutRenderer {
         case .resetCountdown, .resetAbsolute:
             let text = MenuBarLayoutResetText(window: data.automatic, provider: data.provider, now: options.now)
             return self.resetToken(
-                item.resetIsAbsolute ? text.absolute : text.countdown,
+                item.resetIsAbsolute
+                    ? data.automatic?.resetsAt.map { $0.formatted(.dateTime.day()) } ?? text.absolute
+                    : text.countdown,
                 unavailableLabel: item.resetIsAbsolute ? L("Reset time unavailable") : L("Reset countdown unavailable"),
                 attributes: style.attributes)
         case let .windowResetCountdown(window), let .windowResetAbsolute(window):
